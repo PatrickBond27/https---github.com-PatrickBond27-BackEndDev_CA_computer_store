@@ -54,7 +54,9 @@ class ComputerController extends Controller
      */
     public function update(Request $request, Computer $computer)
     {
-        //
+        $computer->update($request->only([
+            'title', 'description', 'brand', 'graphics_card', 'processor', 'storage', 'ram', 'price'
+        ]));
     }
 
     /**
