@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ComputerResource;
 use App\Http\Resources\ComputerCollection;
 use App\Models\Computer;
 use Illuminate\Http\Request;
@@ -26,7 +27,11 @@ class ComputerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $computer = Computer::create($request->only([
+            'title', 'description', 'brand', 'graphics_card', 'processor', 'storage', 'ram', 'price'
+        ]));
+
+        return new ComputerResource($computer);
     }
 
     /**
