@@ -42,7 +42,7 @@ class ComputerController extends Controller
      */
     public function show(Computer $computer)
     {
-        //
+        return new ComputerResource($computer);
     }
 
     /**
