@@ -13,16 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('computers', function (Blueprint $table) {
+        Schema::create('brands', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('computer_id')->constrained();
-            $table->string('title');
-            $table->longText('description');
-            $table->string('graphics_card');
-            $table->string('processor');
-            $table->string('storage');
-            $table->string('ram');
-            $table->string('price');
             $table->timestamps();
         });
     }
@@ -34,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('computers');
+        Schema::dropIfExists('brands');
     }
 };
