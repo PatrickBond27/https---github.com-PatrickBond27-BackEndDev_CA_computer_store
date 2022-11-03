@@ -16,6 +16,7 @@ class ComputerFactory extends Factory
      */
     public function definition()
     {
+        // Uses those attributes for the resource (computer) and the specified type of data.
         return [
             'title' => $this->faker->text(50),
             'description' => $this->faker->text(80),

@@ -41,7 +41,7 @@ class ComputerController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource (computer) in storage.
      *
      * @OA\Post(
      *      path="/api/computers",
@@ -77,6 +77,7 @@ class ComputerController extends Controller
      */
     public function store(Request $request)
     {
+        // The attributes for the computer that takes from the Computer Model.
         $computer = Computer::create($request->only([
             'title', 'description', 'brand', 'graphics_card', 'processor', 'storage', 'ram', 'price'
         ]));
@@ -117,6 +118,7 @@ class ComputerController extends Controller
      */
     public function show(Computer $computer)
     {
+        // Returns and displays the specified resource (computer).
         return new ComputerResource($computer);
     }
 
@@ -129,6 +131,7 @@ class ComputerController extends Controller
      */
     public function update(Request $request, Computer $computer)
     {
+        // Updates the resource (computer).
         $computer->update($request->only([
             'title', 'description', 'brand', 'graphics_card', 'processor', 'storage', 'ram', 'price'
         ]));
@@ -169,6 +172,7 @@ class ComputerController extends Controller
     // check to see if the computer exist.
     public function destroy(Computer $computer)
     {
+        // Deletes the specified resource (computer).
         $computer->delete();
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }

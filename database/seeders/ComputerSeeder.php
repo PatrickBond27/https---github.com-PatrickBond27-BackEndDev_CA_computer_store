@@ -15,6 +15,7 @@ class ComputerSeeder extends Seeder
      */
     public function run()
     {
+        // Seeds the data itself into the database
         Computer::factory()->times(50)->create();
     }
 }

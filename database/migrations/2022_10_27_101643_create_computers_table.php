@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        // Creates the migrated tables for the data and the type of data.
         Schema::create('computers', function (Blueprint $table) {
             $table->id();
             $table->string('title');

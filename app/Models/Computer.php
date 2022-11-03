@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+// Uses the Model to fill the attributes that are protected.
 class Computer extends Model
 {
     use HasFactory;
