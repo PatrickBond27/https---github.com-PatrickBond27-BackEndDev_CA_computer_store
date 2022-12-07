@@ -37,7 +37,8 @@ class ComputerController extends Controller
     {
         // $computers = Computer::all();
         // return new ComputerCollection($computers);
-        return new ComputerCollection(Computer::all());
+        // return new ComputerCollection(Computer::all());
+        return new ComputerCollection(Computer::with('brand')->get());
     }
 
     /**
@@ -61,6 +62,8 @@ class ComputerController extends Controller
      *            @OA\Property(property="storage", type="string", format="string", example="Me"),
      *            @OA\Property(property="ram", type="string", format="string", example="Me"),
      *            @OA\Property(property="price", type="string", format="string", example="Me")
+     *            @OA\Property(property="brand_id", type="string", format="string", example="Me")
+     *            
      *          )
      *      ),
      *     @OA\Response(
@@ -79,7 +82,7 @@ class ComputerController extends Controller
     {
         // The attributes for the computer that takes from the Computer Model.
         $computer = Computer::create($request->only([
-            'title', 'description', 'brand', 'graphics_card', 'processor', 'storage', 'ram', 'price'
+            'title', 'description', 'brand', 'graphics_card', 'processor', 'storage', 'ram', 'price', 'brand_id'
         ]));
 
         return new ComputerResource($computer);
@@ -133,8 +136,10 @@ class ComputerController extends Controller
     {
         // Updates the resource (computer).
         $computer->update($request->only([
-            'title', 'description', 'brand', 'graphics_card', 'processor', 'storage', 'ram', 'price'
+            'title', 'description', 'brand', 'graphics_card', 'processor', 'storage', 'ram', 'price', 'brand_id'
         ]));
+
+        return new ComputerResource($computer);
     }
 
     /**

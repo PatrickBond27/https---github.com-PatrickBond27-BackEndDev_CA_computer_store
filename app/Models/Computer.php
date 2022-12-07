@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 class Computer extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'description', 'brand', 'graphics_card', 'processor', 'storage', 'ram', 'price'];
+    protected $fillable = ['title', 'description', 'brand', 'graphics_card', 'processor', 'storage', 'ram', 'price', 'brand_id'];
     // protected $guarded= [];
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
 }

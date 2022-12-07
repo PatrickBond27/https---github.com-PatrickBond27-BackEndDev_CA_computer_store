@@ -22,4 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // The API routes that takes the resource and displays it on the web.
 Route::apiResource('/computers', ComputerController::class);
+Route::apiResource('/brands', BrandController::class);
 Route::resource('/brand', BrandController::class)->only(['index', 'show']);

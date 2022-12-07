@@ -21,6 +21,9 @@ class ComputerResource extends JsonResource
             'description' => $this->description,
             'graphics_card' => $this->graphics_card,
             'processor' => $this->processor,
+            'brand_id' => $this->brand->id,
+            'brand_name' => $this->brand->name,
+            'brand_description' => $this->brand->desrciption,
         ];
     }
 }
