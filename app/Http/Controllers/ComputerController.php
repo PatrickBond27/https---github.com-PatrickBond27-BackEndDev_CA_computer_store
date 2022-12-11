@@ -38,7 +38,9 @@ class ComputerController extends Controller
         // $computers = Computer::all();
         // return new ComputerCollection($computers);
         // return new ComputerCollection(Computer::all());
-        return new ComputerCollection(Computer::with('brand')->get());
+        return new ComputerCollection(Computer::with('brand')
+        ->with('developers')
+        ->get());
     }
 
     /**

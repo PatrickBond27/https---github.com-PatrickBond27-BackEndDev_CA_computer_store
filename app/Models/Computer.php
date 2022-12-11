@@ -16,4 +16,9 @@ class Computer extends Model
     {
         return $this->belongsTo(Brand::class);
     }
+
+    public function developers()
+    {
+        return $this->belongstoMany(Developer::class)->withTimestamps();
+    }
 }

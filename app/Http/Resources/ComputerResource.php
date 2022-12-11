@@ -14,6 +14,11 @@ class ComputerResource extends JsonResource
      */
     public function toArray($request)
     {
+        $developers = array();
+        foreach($this->developers as $developer){
+            array_push($developers, $developer->name);
+        }
+
         return [
             'id' => $this->id,
             'title' => $this->title,
@@ -23,7 +28,8 @@ class ComputerResource extends JsonResource
             'processor' => $this->processor,
             'brand_id' => $this->brand->id,
             'brand_name' => $this->brand->name,
-            'brand_description' => $this->brand->desrciption,
+            'brand_description' => $this->brand->description,
+            'developers' => $developers
         ];
     }
 }
