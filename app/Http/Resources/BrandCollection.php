@@ -14,6 +14,10 @@ class BrandCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'data' => $this->collection,
+            'version' => '1.0.0',
+            'brand' => 'Dell',
+        ];
     }
 }

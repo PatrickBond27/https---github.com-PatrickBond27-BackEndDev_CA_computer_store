@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Resources\ComputerResource;
 use App\Http\Resources\ComputerCollection;
+use App\Http\Requests\StoreComputerRequest;
+use App\Http\Requests\UpdateComputerRequest;
 
 class ComputerController extends Controller
 {
@@ -77,15 +79,25 @@ class ComputerController extends Controller
      *     )
      * )
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\StoreComputerRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreComputerRequest $request)
     {
         // The attributes for the computer that takes from the Computer Model.
-        $computer = Computer::create($request->only([
-            'title', 'description', 'brand', 'graphics_card', 'processor', 'storage', 'ram', 'price', 'brand_id'
-        ]));
+        $computer = Computer::create([
+            'title' => $request->title, 
+            'description' => $request->description, 
+            'brand' => $request->brand, 
+            'graphics_card' => $request->graphics_card, 
+            'processor' => $request->processor, 
+            'storage' => $request->storage, 
+            'ram' => $request->ram, 
+            'price' => $request->price, 
+            'brand_id' => $request->brand_id
+        ]);
+
+        $computer->developers()->attach($request->developers);
 
         return new ComputerResource($computer);
     }
@@ -130,16 +142,18 @@ class ComputerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\UpdateComputerRequest  $request
      * @param  \App\Models\Computer  $computer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Computer $computer)
+    public function update(UpdateComputerRequest $request, Computer $computer)
     {
         // Updates the resource (computer).
         $computer->update($request->only([
             'title', 'description', 'brand', 'graphics_card', 'processor', 'storage', 'ram', 'price', 'brand_id'
         ]));
+
+        $computer->developers()->attach($request->developers);
 
         return new ComputerResource($computer);
     }

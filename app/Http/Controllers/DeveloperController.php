@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Brand;
+use App\Models\Developer;
 use Illuminate\Http\Request;
-use App\Http\Resources\BrandResource;
-use App\Http\Resources\BrandCollection;
-use App\Http\Requests\StoreBrandRequest;
-use App\Http\Requests\UpdateBrandRequest;
+use App\Http\Resources\DeveloperResource;
+use App\Http\Resources\DeveloperCollection;
+use App\Http\Requests\StoreDeveloperRequest;
+use App\Http\Requests\UpdateDeveloperRequest;
 
-class BrandController extends Controller
+class DeveloperController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,57 +36,58 @@ class BrandController extends Controller
      */
     public function index()
     {
-        // return new BrandCollection(Brand::all());
-        return new BrandCollection(Brand::all());
+        // return new DeveloperCollection(Developer::all());
+        return new DeveloperCollection(Developer::all());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\StoreBrandRequest  $request
+     * @param  \Illuminate\Http\StoreDeveloperRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreBrandRequest $request)
+    public function store(StoreDeveloperRequest $request)
     {
-        $brand = Brand::create([
+        $developer = Developer::create([
             'name' => $request->name,
-            'description' => $request->description
+            'address' => $request->address,
+            'biography' => $request->biography
         ]);
 
-        return new BrandResource($brand);
+        return new DeveloperResource($developer);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Brand  $brand
+     * @param  \App\Models\Developer  $developer
      * @return \Illuminate\Http\Response
      */
-    public function show(Brand $brand)
+    public function show(Developer $developer)
     {
-        return new BrandResource($brand);
+        return new DeveloperResource($developer);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Brand  $brand
+     * @param  \App\Models\Developer  $developer
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateBrandRequest $request, Brand $brand)
+    public function update(UpdateDeveloperRequest $request, Developer $developer)
     {
-        $brand->update($request->all());
+        $developer->update($request->all());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Brand  $brand
+     * @param  \App\Models\Developer  $developer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Brand $brand)
+    public function destroy(Developer $developer)
     {
-        $brand->delete();
+        $developer->delete();
     }
 }
