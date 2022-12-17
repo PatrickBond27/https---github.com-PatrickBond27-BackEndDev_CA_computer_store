@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Developer;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Resources\DeveloperResource;
 use App\Http\Resources\DeveloperCollection;
 use App\Http\Requests\StoreDeveloperRequest;
@@ -15,12 +16,12 @@ class DeveloperController extends Controller
      * Display a listing of the resource.
      *
      * @OA\Get(
-     *     path="/api/brands",
-     *     description="Displays all the brands",
-     *     tags={"Brands"},
+     *     path="/api/developers",
+     *     description="Displays all the developers",
+     *     tags={"Developers"},
      *      @OA\Response(
      *          response=200,
-     *          description="Successful operation, Returns a list of Brands in JSON format"
+     *          description="Successful operation, Returns a list of Developers in JSON format"
      *       ),
      *      @OA\Response(
      *          response=401,
@@ -59,6 +60,32 @@ class DeveloperController extends Controller
 
     /**
      * Display the specified resource.
+     * 
+     *  * @OA\Get(
+    *     path="/api/developers/{id}",
+    *     description="Gets a developer by ID",
+    *     tags={"Developers"},
+    *          @OA\Parameter(
+    *          name="id",
+    *          description="Developer id",
+    *          required=true,
+    *          in="path",
+    *          @OA\Schema(
+    *              type="integer")
+    *          ),
+    *      @OA\Response(
+    *          response=200,
+    *          description="Successful operation"
+    *       ),
+    *      @OA\Response(
+    *          response=401,
+    *          description="Unauthenticated",
+    *      ),
+    *      @OA\Response(
+    *          response=403,
+    *          description="Forbidden"
+    *      )
+    * )
      *
      * @param  \App\Models\Developer  $developer
      * @return \Illuminate\Http\Response
@@ -89,5 +116,6 @@ class DeveloperController extends Controller
     public function destroy(Developer $developer)
     {
         $developer->delete();
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }

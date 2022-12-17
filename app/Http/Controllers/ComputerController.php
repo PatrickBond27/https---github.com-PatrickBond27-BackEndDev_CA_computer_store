@@ -51,23 +51,24 @@ class ComputerController extends Controller
      * @OA\Post(
      *      path="/api/computers",
      *      operationId="store",
-     *      tags={"Computer"},
+     *      tags={"Computers"},
      *      summary="Create a new Computer",
      *      description="Stores the computer in the DB",
+     *      security={{"bearerAuth":{}}},
      *      @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *            required={"title", "description", "brand", "graphics_card", "processor", "storage", "ram", "price"},
+     *            required={"title", "description", "brand", "graphics_card", "processor", "storage", "ram", "price", "brand_id", "developers"},
      *            @OA\Property(property="title", type="string", format="string", example="Sample Title"),
      *            @OA\Property(property="description", type="string", format="string", example="A long description about this computer"),
-     *            @OA\Property(property="brand", type="string", format="string", example="Me"),
-     *            @OA\Property(property="graphics_card", type="string", format="string", example="Me"),
-     *            @OA\Property(property="processor", type="string", format="string", example="Me"),
-     *            @OA\Property(property="storage", type="string", format="string", example="Me"),
-     *            @OA\Property(property="ram", type="string", format="string", example="Me"),
-     *            @OA\Property(property="price", type="string", format="string", example="Me")
-     *            @OA\Property(property="brand_id", type="string", format="string", example="Me")
-     *            
+     *            @OA\Property(property="brand", type="string", format="string", example="Dell"),
+     *            @OA\Property(property="graphics_card", type="string", format="string", example="RTX 3070"),
+     *            @OA\Property(property="processor", type="string", format="string", example="intel i9"),
+     *            @OA\Property(property="storage", type="string", format="string", example="512 GB"),
+     *            @OA\Property(property="ram", type="string", format="string", example="8 GB"),
+     *            @OA\Property(property="price", type="string", format="string", example="1600"),
+     *            @OA\Property(property="brand_id", type="json", format="json", example=2),
+     *            @OA\Property(property="developers", type="json", format="json", example={1, 3})
      *          )
      *      ),
      *     @OA\Response(
@@ -109,26 +110,26 @@ class ComputerController extends Controller
     *     description="Gets a computer by ID",
     *     tags={"Computers"},
     *          @OA\Parameter(
-        *          name="id",
-        *          description="Computer id",
-        *          required=true,
-        *          in="path",
-        *          @OA\Schema(
-        *              type="integer")
-     *          ),
-        *      @OA\Response(
-        *          response=200,
-        *          description="Successful operation"
-        *       ),
-        *      @OA\Response(
-        *          response=401,
-        *          description="Unauthenticated",
-        *      ),
-        *      @OA\Response(
-        *          response=403,
-        *          description="Forbidden"
-        *      )
-        * )
+    *          name="id",
+    *          description="Computer id",
+    *          required=true,
+    *          in="path",
+    *          @OA\Schema(
+    *              type="integer")
+    *          ),
+    *      @OA\Response(
+    *          response=200,
+    *          description="Successful operation"
+    *       ),
+    *      @OA\Response(
+    *          response=401,
+    *          description="Unauthenticated",
+    *      ),
+    *      @OA\Response(
+    *          response=403,
+    *          description="Forbidden"
+    *      )
+    * )
      *
      * @param  \App\Models\Computer  $computer
      * @return \Illuminate\Http\Response
@@ -142,6 +143,40 @@ class ComputerController extends Controller
     /**
      * Update the specified resource in storage.
      *
+     * * @OA\Put(
+     *      path="/api/computers/{id}",
+     *      operationId="update",
+     *      tags={"Computers"},
+     *      summary="Update an existing Computer",
+     *      description="Updates the computer in the DB",
+     *      security={{"bearerAuth":{}}},
+     *      @OA\Parameter(name="id", in="path", description="Id of a Computer", required=true,
+     *        @OA\Schema(type="integer")
+     *      ),
+     *      @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *            required={"title", "description", "brand", "graphics_card", "processor", "storage", "ram", "price", "brand_id"},
+     *            @OA\Property(property="title", type="string", format="string", example="Sample Title"),
+     *            @OA\Property(property="description", type="string", format="string", example="A long description about this computer"),
+     *            @OA\Property(property="brand", type="string", format="string", example="Me"),
+     *            @OA\Property(property="graphics_card", type="string", format="string", example="Me"),
+     *            @OA\Property(property="processor", type="string", format="string", example="Me"),
+     *            @OA\Property(property="storage", type="string", format="string", example="Me"),
+     *            @OA\Property(property="ram", type="string", format="string", example="Me"),
+     *            @OA\Property(property="price", type="string", format="string", example="Me"),
+     *            @OA\Property(property="developers", type="json", format="json", example={1, 3})
+     *          )
+     *      ),
+     *     @OA\Response(
+     *          response=200, description="Success",
+     *          @OA\JsonContent(
+     *             @OA\Property(property="status", type="integer", example=""),
+     *             @OA\Property(property="data",type="object")
+     *          )
+     *     )
+     * )
+     * 
      * @param  \Illuminate\Http\UpdateComputerRequest  $request
      * @param  \App\Models\Computer  $computer
      * @return \Illuminate\Http\Response
@@ -167,6 +202,7 @@ class ComputerController extends Controller
      *    tags={"Computers"},
      *    summary="Delete a Computer",
      *    description="Delete Computer",
+     *      security={{"bearerAuth":{}}},
      *    @OA\Parameter(name="id", in="path", description="Id of a Computer", required=true,
      *        @OA\Schema(type="integer")
      *    ),

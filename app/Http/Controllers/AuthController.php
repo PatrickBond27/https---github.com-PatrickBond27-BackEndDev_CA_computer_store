@@ -43,7 +43,7 @@ class AuthController extends Controller
             ]);
 
             // check out the table personal_access_tokens to see the generated tokens
-            $token = $user->createToken('book-store-token')->plainTextToken;
+            $token = $user->createToken('computer-store-token')->plainTextToken;
 
             // create the successful response including the token
             return response()->json(
@@ -92,7 +92,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'User Logged In Successfully',
-                'token' => $user->createToken("book-store-token")->plainTextToken
+                'token' => $user->createToken("computer-store-token")->plainTextToken
             ], 200);
 
         }
@@ -104,6 +104,36 @@ class AuthController extends Controller
             ], 500);
         }
     }
+
+    /**
+ * 
+ * @OA\Get(
+ *      path="/users",
+ *      operationId="getListOfUsers",
+ *      tags={"Users"},
+ *      description="Get list of users",
+ *      security={{"bearerAuth":{}}}, 
+ *      
+ *      @OA\Response(
+ *          response=200,
+ *          description="Get list of users.",
+ *          @OA\JsonContent(type="object",
+ *              @OA\Property(property="message", type="string"),
+ *              @OA\Property(property="data", type="array",
+ *                  @OA\Items(type="object",
+ *                      @OA\Property(property="id", type="integer"),
+ *                      @OA\Property(property="name", type="string"),
+ *                      @OA\Property(property="email", type="string"),
+ *                  ),
+ *              ),
+ *          ),
+ *       ),
+ *       @OA\Response(response=401, description="Unauthorized"),
+ *       @OA\Response(response=404, description="Not Found"),
+ * )
+ * 
+ * @return JsonResponse
+ */
 
     // This function returns the user profile, but only if they are logged in so have an authentication token
     public function user()

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Resources\BrandResource;
 use App\Http\Resources\BrandCollection;
 use App\Http\Requests\StoreBrandRequest;
@@ -41,7 +42,7 @@ class BrandController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource (brand) in storage.
      *
      * @param  \Illuminate\Http\StoreBrandRequest  $request
      * @return \Illuminate\Http\Response
@@ -58,6 +59,32 @@ class BrandController extends Controller
 
     /**
      * Display the specified resource.
+     * 
+     * @OA\Get(
+    *     path="/api/brands/{id}",
+    *     description="Gets a brand by ID",
+    *     tags={"Brands"},
+    *          @OA\Parameter(
+    *          name="id",
+    *          description="Brand id",
+    *          required=true,
+    *          in="path",
+    *          @OA\Schema(
+    *              type="integer")
+    *          ),
+    *      @OA\Response(
+    *          response=200,
+    *          description="Successful operation"
+    *       ),
+    *      @OA\Response(
+    *          response=401,
+    *          description="Unauthenticated",
+    *      ),
+    *      @OA\Response(
+    *          response=403,
+    *          description="Forbidden"
+    *      )
+    * )
      *
      * @param  \App\Models\Brand  $brand
      * @return \Illuminate\Http\Response
@@ -88,5 +115,6 @@ class BrandController extends Controller
     public function destroy(Brand $brand)
     {
         $brand->delete();
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }
